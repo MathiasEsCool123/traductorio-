@@ -1,0 +1,20 @@
+import discord
+from discord.ext import commands
+from googletrans import Translator
+
+bot = commands.Bot(command_prefix='!')
+translator = Translator()
+
+@bot.command()
+async def translate(ctx, target_lang, *, text):
+    translated_text = translator.translate(text, dest=target_lang)
+    await ctx.send("{translated_text.src}: {translated_text.text}")
+@bot.event
+async def on_ready():
+    print('Logged in as {bot.user.name}')
+
+@bot.event
+async def on_message(message):
+    await bot.process_commands(message)
+bot.run('token de tu bot')
+
